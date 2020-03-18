@@ -9,9 +9,15 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
-    "test": "jest",
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "test:e2e": "cypress open",
-    "test:e2e:CI": "cypress run"
+    "test:e2e:CI": "cypress run",
+    "test:unit": "jest --updateSnapshot",
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:watch": "jest --watch",
+    "test:unit:watchAll": "jest --watchAll",
+    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
+    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -23,6 +29,7 @@
     "@quasar/app": "^1.0.0",
     "@quasar/quasar-app-extension-testing": "^1.0.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^1.0.0-beta.10",
+    "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.0",
     "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2",
     "@types/node": "11.9.5",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
