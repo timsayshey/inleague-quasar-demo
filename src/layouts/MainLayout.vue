@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink';
+import EssentialLink from '../components/EssentialLink';
 
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
   name: 'MainLayout',

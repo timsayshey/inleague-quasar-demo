@@ -2,6 +2,7 @@
   <q-page class="flex flex-center">
     <q-form @submit="onSubmit" class="q-gutter-md">
       <q-input
+        class="username"
         filled
         v-model="username"
         label="Your email *"
@@ -11,6 +12,7 @@
       />
 
       <q-input
+        class="password"
         filled
         type="password"
         v-model="password"
@@ -22,7 +24,7 @@
       />
 
       <div>
-        <q-btn label="Login" type="submit" color="primary" />
+        <q-btn class="submit" label="Login" type="submit" color="primary" />
       </div>
     </q-form>
   </q-page>

@@ -1,13 +1,24 @@
-import * as ctx from  '../../../../quasar.conf.js'
+import * as ctx from '../../../../quasar.conf.js';
 
 describe('Landing', () => {
   beforeEach(() => {
-    cy.visit('/')
-  })
-  it('.should() - assert that <title> is correct', () => {
-    cy.title().should('include', 'Quasar')
-  })
-})
+    cy.visit('/');
+  });
+
+  it('missing/invalid username', () => {
+    cy.get('.username input').type('1');
+
+    cy.get('.submit').click();
+
+    cy.get('.q-notification__message', { timeout: 10000 }).should('be.visible');
+  });
+
+  it('missing/invlaid password', () => {});
+
+  it('no connection', () => {});
+
+  it('valid submission but an unsuccessful login.', () => {});
+});
 
 // describe('Home page tests', () => {
 //   beforeEach(() => {
