@@ -1,25 +1,25 @@
 <template>
   <q-page class="flex flex-center">
     <q-form @submit="onSubmit" class="q-gutter-md">
-      <q-input
-        class="username"
-        filled
-        v-model="username"
+
+      <q-input filled
+        v-model.trim="username"
         label="Your email *"
-        hint="Your Email or Username"
-        lazy-rules
-        :rules="[val => (val && val.length > 0) || 'Please type your email or username']"
+        @input="$v.username.$touch()"
+        :rules="[
+          val => $v.username.required || 'Email is required',
+          val => $v.username.email || 'Invalid email format',
+        ]"
       />
 
-      <q-input
-        class="password"
-        filled
+      <q-input filled
         type="password"
-        v-model="password"
+        v-model.trim="password"
         label="Your password *"
-        lazy-rules
+        @input="$v.password.$touch()"
         :rules="[
-          val => (val !== null && val !== '') || 'Please type your password'
+          val => $v.password.required || 'Password is required',
+          val => $v.password.letterNumber || 'Must have at least one letter and one number',
         ]"
       />
 
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators';
+import { required, email, helpers } from 'vuelidate/lib/validators'
+const letterNumber = helpers.regex('letterNumber', /[a-z].*[0-9]|[0-9].*[a-z]/i)
 import { mapActions } from 'vuex';
 import Vue from 'vue';
 
@@ -49,18 +50,26 @@ export default Vue.extend({
       if (success) this.$router.push({ path: '/user' });
     }
   },
+  computed: {
+    passwordInvalid() {
+      return !$v.password.required || !$v.password.minLength
+    }
+  },
   data() {
     return {
       username: 'jobs@inleague.com',
       password: 'openBook99'
     };
   },
-  validations() {
-    return {
-      modifiedAccount: {
-        displayName: { required }
-      }
-    };
+  validations: {
+    username: {
+      required,
+      email,
+    },
+    password: {
+      letterNumber,
+      required,
+    },
   }
 });
 </script>

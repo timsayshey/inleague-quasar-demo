@@ -15,5 +15,12 @@
     "options": [
       "scripts"
     ]
+  },
+  "tailwindcss": {
+    "prefix": "",
+    "parts": [
+      "components",
+      "utilities"
+    ]
   }
 }
