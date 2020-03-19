@@ -6,7 +6,7 @@ describe('Landing', () => {
   });
 
   it('should have missing/invalid username', () => {
-    cy.get('.username input').type('1');
+    cy.get('.username input').type('m');
 
     cy.get('.submit').click();
 

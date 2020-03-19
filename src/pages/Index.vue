@@ -3,6 +3,7 @@
     <q-form @submit="onSubmit" class="q-gutter-md">
 
       <q-input filled
+        class="username"
         v-model.trim="username"
         label="Your email *"
         @input="$v.username.$touch()"
@@ -13,6 +14,7 @@
       />
 
       <q-input filled
+        class="password"
         type="password"
         v-model.trim="password"
         label="Your password *"

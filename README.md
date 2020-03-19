@@ -3,24 +3,30 @@
 An InLeague Quasar App
 
 ## Install the dependencies
+
 ```bash
 yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
+
 ```bash
 quasar dev
 ```
 
-### Lint the files
+### Run Integration Tests
+
 ```bash
-yarn run lint
+yarn test:unit
 ```
 
-### Build the app for production
+### Run End 2 End Tests
+
 ```bash
-quasar build
+yarn test:e2e
+After Cypress launches, click the test you want to run.
 ```
 
 ### Customize the configuration
+
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
