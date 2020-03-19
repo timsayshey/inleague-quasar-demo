@@ -1,61 +1,82 @@
-/* eslint-disable */
-/**
- * @jest-environment jsdom
- */
+import axios from 'axios';
+import {} from 'jest';
 
-import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
-import QBUTTON from './demo/QBtn-demo.vue'
-import * as All from 'quasar'
-// import langEn from 'quasar/lang/en-us' // change to any language you wish! => this breaks wallaby :(
-const { Quasar, date } = All
+describe("Test 'Authentice API' service", () => {
+  it('should have missing/invalid username', async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.set('password', 'openBook99');
 
-const components = Object.keys(All).reduce((object, key) => {
-  const val = All[key]
-  if (val && val.component && val.component.name != null) {
-    object[key] = val
-  }
-  return object
-}, {})
+    let res = await axios({
+      url: 'https://qa.api.inleague.io/v1/authenticate',
+      method: 'post',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(null, res => {
+      expect(res.response.status).toEqual(400);
+    });
+  });
 
-describe('Mount Quasar', () => {
-  const localVue = createLocalVue()
-  localVue.use(Quasar, { components }) // , lang: langEn
+  it('should have missing/invlaid password', async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.set('username', 'jobs@inleague.com');
 
-  const wrapper = mount(QBUTTON, {
-    localVue
-  })
-  const vm = wrapper.vm
+    let res = await axios({
+      url: 'https://qa.api.inleague.io/v1/authenticate',
+      method: 'post',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(null, res => {
+      // console.log('should have missing/invlaid password', res);
+      expect(res.response.status).toEqual(400);
+    });
+  });
 
-  it('passes the sanity check and creates a wrapper', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  it('should have no connection', async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.set('username', 'jobs@inleague.com');
+    bodyFormData.set('password', 'openBook99');
 
-  it('has a created hook', () => {
-    expect(typeof vm.increment).toBe('function')
-  })
+    let res = await axios({
+      url: 'http://invalid/v1/authenticate',
+      method: 'post',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).catch(err => {
+      expect(err.response).toEqual(undefined);
+    });
+  });
 
-  it('accesses the shallowMount', () => {
-    expect(vm.$el.textContent).toContain('rocket muffin')
-    expect(wrapper.text()).toContain('rocket muffin') // easier
-    expect(wrapper.find('p').text()).toContain('rocket muffin')
-  })
+  it('should have valid submission but an unsuccessful login', async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.set('username', 'jobs@inleague.com');
+    bodyFormData.set('password', 'invalidPassword');
 
-  it('sets the correct default data', () => {
-    expect(typeof vm.counter).toBe('number')
-    const defaultData2 = QBUTTON.data()
-    expect(defaultData2.counter).toBe(0)
-  })
+    let res = await axios({
+      url: 'https://qa.api.inleague.io/v1/authenticate',
+      method: 'post',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(null, res => {
+      // console.log(
+      //   'should have valid submission but an unsuccessful login',
+      //   res
+      // );
+      expect(res.response.status).toEqual(401);
+    });
+  });
 
-  it('correctly updates data when button is pressed', () => {
-    const button = wrapper.find('button')
-    button.trigger('click')
-    expect(vm.counter).toBe(1)
-  })
+  it('should have valid submission and a successful login', async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.set('username', 'jobs@inleague.com');
+    bodyFormData.set('password', 'openBook99');
 
-  it('formats a date without throwing exception', () => {
-    // test will automatically fail if an exception is thrown
-    // MMMM and MMM require that a language is 'installed' in Quasar
-    let formattedString = date.formatDate(Date.now(), 'YYYY MMMM MMM DD')
-    console.log('formattedString', formattedString)
-  })
-})
+    let res = await axios({
+      url: 'https://qa.api.inleague.io/v1/authenticate',
+      method: 'post',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(null, res => {
+      expect(res.response.status).toEqual(201);
+    });
+  });
+});

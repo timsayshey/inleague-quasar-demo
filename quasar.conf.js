@@ -97,9 +97,9 @@ module.exports = function(ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'InLeague Quasar App',
-        short_name: 'InLeague Quasar App',
-        description: 'An InLeague Quasar App',
+        name: 'Quasar App',
+        short_name: 'Quasar App',
+        description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -163,7 +163,7 @@ module.exports = function(ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'inleague-quasar-demo'
+        appId: 'inleague-demo'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

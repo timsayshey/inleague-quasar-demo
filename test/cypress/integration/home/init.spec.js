@@ -5,19 +5,13 @@ describe('Landing', () => {
     cy.visit('/');
   });
 
-  it('missing/invalid username', () => {
+  it('should have missing/invalid username', () => {
     cy.get('.username input').type('1');
 
     cy.get('.submit').click();
 
     cy.get('.q-notification__message', { timeout: 10000 }).should('be.visible');
   });
-
-  it('missing/invlaid password', () => {});
-
-  it('no connection', () => {});
-
-  it('valid submission but an unsuccessful login.', () => {});
 });
 
 // describe('Home page tests', () => {

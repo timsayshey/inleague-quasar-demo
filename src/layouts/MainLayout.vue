@@ -30,13 +30,13 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import EssentialLink from '../components/EssentialLink';
+<script>
+import EssentialLink from "../components/EssentialLink.vue";
 
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
     EssentialLink
@@ -47,10 +47,10 @@ export default Vue.extend({
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'InLeague',
-          caption: 'inleague.io',
-          icon: 'school',
-          link: 'https://www.inleague.io/'
+          title: "InLeague",
+          caption: "inleague.io",
+          icon: "school",
+          link: "https://www.inleague.io/"
         }
       ]
     };

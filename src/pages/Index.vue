@@ -30,7 +30,8 @@
   </q-page>
 </template>
 
-<script lang="ts">
+<script>
+import { required } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import Vue from 'vue';
 
@@ -52,6 +53,13 @@ export default Vue.extend({
     return {
       username: 'jobs@inleague.com',
       password: 'openBook99'
+    };
+  },
+  validations() {
+    return {
+      modifiedAccount: {
+        displayName: { required }
+      }
     };
   }
 });

@@ -22,7 +22,7 @@
   </q-page>
 </template>
 
-<script lang="ts">
+<script>
 import { mapState } from 'vuex';
 import Vue from 'vue';
 
